@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dknakyv72dkmb"]
+
+[ext_resource type="Texture2D" uid="uid://b2arktvnbmv77" path="res://textures/block_PavingStones28_col.jpg" id="1_aba71"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_712a6"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_baq8x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npjbr"]
+albedo_texture = ExtResource("1_aba71")
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_712a6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_baq8x")
+surface_material_override/0 = SubResource("StandardMaterial3D_npjbr")

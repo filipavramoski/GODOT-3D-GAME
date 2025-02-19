@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1wg4g7ofqu8l"]
+
+[ext_resource type="Script" path="res://scripts/win_button.gd" id="1_csc7m"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1274.0
+offset_bottom = 718.0
+color = Color(0.463566, 0.884605, 0.761244, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 110.0
+offset_right = 834.0
+offset_bottom = 319.0
+theme_override_colors/font_color = Color(0.0500623, 0.487959, 0.218919, 1)
+theme_override_font_sizes/font_size = 80
+text = "You win!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="winButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 479.0
+offset_top = 348.0
+offset_right = 739.0
+offset_bottom = 404.0
+theme_override_colors/font_hover_color = Color(0.531417, 0.512669, 0.0750764, 1)
+theme_override_font_sizes/font_size = 50
+text = "Play again"
+script = ExtResource("1_csc7m")
+
+[connection signal="pressed" from="winButton" to="winButton" method="_on_pressed"]

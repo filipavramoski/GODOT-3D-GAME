@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5w7p57btq00f"]
+
+[ext_resource type="Script" path="res://scripts/playGame.gd" id="1_wnst6"]
+
+[sub_resource type="FontFile" id="FontFile_wmiv6"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/30/0/ascent = 0.0
+cache/0/30/0/descent = 0.0
+cache/0/30/0/underline_position = 0.0
+cache/0/30/0/underline_thickness = 0.0
+cache/0/30/0/scale = 1.0
+cache/0/60/0/ascent = 0.0
+cache/0/60/0/descent = 0.0
+cache/0/60/0/underline_position = 0.0
+cache/0/60/0/underline_thickness = 0.0
+cache/0/60/0/scale = 1.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bg2xf"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 7.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.12702, 0.182036, 0.389869, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1267.0
+offset_bottom = 710.0
+theme_override_colors/font_color = Color(0.199306, 0.600999, 0.616595, 1)
+theme_override_colors/font_shadow_color = Color(0.0588235, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.422118, 0.369026, 0.170804, 0.996078)
+theme_override_constants/shadow_outline_size = 22
+theme_override_fonts/font = SubResource("FontFile_wmiv6")
+theme_override_font_sizes/font_size = 60
+text = "3D GAME - 211063"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 457.0
+offset_right = 850.0
+offset_bottom = 545.0
+theme_override_colors/icon_hover_pressed_color = Color(0.616315, 0.533632, 0.176945, 1)
+theme_override_font_sizes/font_size = 50
+text = "Start the Game!"
+icon = SubResource("PlaceholderTexture2D_bg2xf")
+script = ExtResource("1_wnst6")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

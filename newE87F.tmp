@@ -1,0 +1,239 @@
+[gd_scene load_steps=19 format=3 uid="uid://dfat1jkrvx836"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_0dmrt"]
+[ext_resource type="Texture2D" uid="uid://cy84i5oylnrc6" path="res://textures/Grass 23  .png" id="1_8f58g"]
+[ext_resource type="PackedScene" uid="uid://dknakyv72dkmb" path="res://assets/player.tscn" id="1_qhpms"]
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_y2wws"]
+[ext_resource type="MeshLibrary" uid="uid://cuw6dms6r3e55" path="res://assets/blocksLibrary.tres" id="4_hxkis"]
+[ext_resource type="PackedScene" uid="uid://b2pk6230c8pu5" path="res://assets/coin.tscn" id="5_yllrs"]
+[ext_resource type="Texture2D" uid="uid://t4jamvb3dncm" path="res://sprites/hud_coin.png" id="6_cc6j8"]
+[ext_resource type="PackedScene" uid="uid://dbisrh4kaayjs" path="res://assets/trees.tscn" id="8_7bxiu"]
+[ext_resource type="Script" path="res://scripts/counter.gd" id="8_rgbgc"]
+[ext_resource type="PackedScene" uid="uid://rmnajjbk1m7x" path="res://assets/benches.tscn" id="9_wpgwd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a20vf"]
+size = Vector3(100, 4.297, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wlajh"]
+albedo_color = Color(0.52049, 0.953645, 0.281978, 1)
+albedo_texture = ExtResource("1_8f58g")
+normal_enabled = true
+normal_scale = -16.0
+normal_texture = ExtResource("1_8f58g")
+uv1_scale = Vector3(-5.285, -5.285, -5.285)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4ghq7"]
+material = SubResource("StandardMaterial3D_wlajh")
+size = Vector3(100, 4, 100)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6sp5b"]
+sky_top_color = Color(0.655954, 0.279384, 0.297825, 1)
+sky_horizon_color = Color(0.788235, 0.803922, 0.0196078, 1)
+sky_curve = 0.09
+ground_bottom_color = Color(0.2, 0.168627, 0.462745, 1)
+ground_horizon_color = Color(0.74044, 0.652722, 0.304856, 1)
+sun_angle_max = 56.67
+
+[sub_resource type="Sky" id="Sky_w0mup"]
+sky_material = SubResource("ProceduralSkyMaterial_6sp5b")
+radiance_size = 4
+
+[sub_resource type="Environment" id="Environment_2yr18"]
+background_mode = 2
+sky = SubResource("Sky_w0mup")
+ambient_light_color = Color(0.745098, 0.745098, 0.745098, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4uivm"]
+
+[sub_resource type="FontFile" id="FontFile_bhmbl"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_y2wws")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(0.999974, 0.00582556, -0.00433308, -0.00587656, 0.999913, -0.0118522, 0.00426366, 0.0118773, 0.99992, -0.0498813, 0.244793, -0.0157691)
+shape = SubResource("BoxShape3D_a20vf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_4ghq7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_qhpms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.18409, 2.94587, 15.3109)
+script = ExtResource("1_0dmrt")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.882513, 0.470288, 0, -0.470288, 0.882513, 1.1807, 4.34767, 15.454)
+environment = SubResource("Environment_2yr18")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.839427, 0.25427, 0.480321, -0.532459, 0.20776, 0.820563, 0.108853, -0.944554, 0.309788, 21.229, 16.2842, 2.12545)
+shadow_enabled = true
+
+[node name="GridMap" type="GridMap" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh_library = ExtResource("4_hxkis")
+physics_material = SubResource("PhysicsMaterial_4uivm")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65526, 65526, 0, 65526, 65528, 0, 65526, 65529, 0, 65526, 65531, 0, 65526, 65532, 0, 65526, 65534, 0, 65526, 65535, 0, 65526, 1, 0, 65526, 2, 0, 65526, 4, 0, 65526, 5, 0, 65526, 7, 0, 65526, 9, 0, 65526, 65527, 1, 65526, 65530, 1, 65526, 65533, 1, 65526, 0, 1, 65526, 3, 1, 65526, 6, 1, 65526, 8, 1, 65527, 65526, 1, 65529, 65526, 1, 65533, 65526, 1, 1, 65526, 1, 0, 65526, 1, 4, 65526, 1, 6, 65526, 1, 9, 65526, 1, 9, 65527, 1, 9, 65529, 1, 9, 65532, 1, 9, 65534, 1, 9, 65535, 1, 9, 2, 1, 9, 7, 1, 6, 9, 0, 1, 9, 1, 65535, 9, 1, 65534, 9, 1, 65532, 9, 1, 65529, 9, 1, 65528, 9, 1, 8, 65526, 0, 7, 65526, 0, 5, 65526, 0, 3, 65526, 0, 2, 65526, 0, 9, 65528, 0, 9, 65530, 0, 9, 65531, 0, 9, 65533, 0, 9, 0, 0, 9, 1, 0, 9, 4, 0, 9, 3, 0, 9, 5, 0, 9, 6, 0, 9, 8, 0, 9, 9, 0, 8, 9, 0, 7, 9, 0, 5, 9, 0, 3, 9, 0, 4, 9, 0, 2, 9, 0, 0, 9, 0, 65533, 9, 0, 65531, 9, 0, 65530, 9, 0, 65527, 9, 0, 65530, 65526, 0, 65528, 65526, 0, 65531, 65526, 0, 65532, 65526, 0, 65534, 65526, 0, 65535, 65526, 0, 5, 65529, 0, 5, 65530, 0, 5, 65531, 0, 4, 65531, 0, 3, 65531, 0, 6, 4, 0, 5, 6, 0, 65530, 1, 0, 65530, 2, 0, 65530, 3, 0, 65530, 4, 0, 65531, 4, 0, 65532, 5, 0, 65532, 4, 0, 65533, 65531, 0, 65535, 65535, 0, 65529, 65532, 0, 1, 2, 0, 1, 3, 0, 1, 4, 0)
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+autostart = true
+
+[node name="Coins" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="coinHolder" type="Node3D" parent="Coins"]
+
+[node name="coin" parent="Coins/coinHolder" instance=ExtResource("5_yllrs")]
+
+[node name="coinHolder5" type="Node3D" parent="Coins"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 17.0471)
+
+[node name="coin" parent="Coins/coinHolder5" instance=ExtResource("5_yllrs")]
+
+[node name="coinHolder4" type="Node3D" parent="Coins"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.078, 0, 0)
+
+[node name="coin" parent="Coins/coinHolder4" instance=ExtResource("5_yllrs")]
+
+[node name="coinHolder3" type="Node3D" parent="Coins"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3324, 0, -35.0518)
+
+[node name="coin" parent="Coins/coinHolder3" instance=ExtResource("5_yllrs")]
+
+[node name="coinHolder2" type="Node3D" parent="Coins"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8906, 0, 12.7771)
+
+[node name="coin" parent="Coins/coinHolder2" instance=ExtResource("5_yllrs")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1278.0
+offset_bottom = 724.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+position = Vector2(1002, 55)
+scale = Vector2(0.222, 0.232)
+texture = ExtResource("6_cc6j8")
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 1079.0
+offset_top = 30.0
+offset_right = 1124.0
+offset_bottom = 97.0
+theme_override_fonts/font = SubResource("FontFile_bhmbl")
+theme_override_font_sizes/font_size = 50
+text = "x
+"
+
+[node name="Counter" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 1130.0
+offset_top = -3.0
+offset_right = 1271.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0.92549, 0.647059, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "Q"
+script = ExtResource("8_rgbgc")
+
+[node name="Timer" type="Timer" parent="Control/Counter"]
+
+[node name="TimerLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 950.0
+offset_top = 81.0
+offset_right = 1224.0
+offset_bottom = 183.0
+theme_override_font_sizes/font_size = 30
+text = "Time: 30"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="tree" parent="." instance=ExtResource("8_7bxiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.228, 2.21903, 11.0256)
+
+[node name="tree4" parent="." instance=ExtResource("8_7bxiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2205, 2.61505, -14.3015)
+
+[node name="tree7" parent="." instance=ExtResource("8_7bxiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9058, 2.31987, -24.6226)
+
+[node name="tree6" parent="." instance=ExtResource("8_7bxiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9086, 2.36281, -37.2663)
+
+[node name="tree2" parent="." instance=ExtResource("8_7bxiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9924, 2.30191, 11.0256)
+
+[node name="tree5" parent="." instance=ExtResource("8_7bxiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.4744, 1.88894, 29.1544)
+
+[node name="tree3" parent="." instance=ExtResource("8_7bxiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1125, 2.53695, 43.2029)
+
+[node name="bench" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 39.7432, 3.13309, -14.2075)
+
+[node name="bench2" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(-0.0101186, 0, 0.199744, 0, 0.2, 0, -0.199744, 0, -0.0101186, -37.4, 3.273, -38.7127)
+
+[node name="bench3" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(-0.0101186, 0, 0.199744, 0, 0.2, 0, -0.199744, 0, -0.0101186, -7.7039, 3.44138, -38.7127)
+
+[node name="bench4" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(-0.0101186, 0, 0.199744, 0, 0.2, 0, -0.199744, 0, -0.0101186, 15.7715, 3.25664, -38.7127)
+
+[node name="bench5" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(0.195915, 0, 0.0402156, 0, 0.2, 0, -0.0402156, 0, 0.195915, 15.7715, 3.46609, -1.04675)
+
+[node name="bench6" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(-0.198976, 0, -0.0202112, 0, 0.2, 0, 0.0202112, 0, -0.198976, -40.1537, 3.42509, -1.04675)
+
+[node name="bench7" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(-0.198976, 0, -0.0202112, 0, 0.2, 0, 0.0202112, 0, -0.198976, -40.1537, 3.3933, 38.3624)
+
+[node name="bench8" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(0.0302522, 0, -0.197699, 0, 0.2, 0, 0.197699, 0, 0.0302522, -13.7647, 3.42617, 42.0853)
+
+[node name="bench9" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(0.0302522, 0, -0.197699, 0, 0.2, 0, 0.197699, 0, 0.0302522, 26.0761, 3.42617, 42.0853)
+
+[node name="bench10" parent="." instance=ExtResource("9_wpgwd")]
+transform = Transform3D(0.0302522, 0, -0.197699, 0, 0.2, 0, 0.197699, 0, 0.0302522, 14.3612, 3.42617, 25.9165)
+
+[connection signal="body_entered" from="Coins/coinHolder/coin" to="Coins/coinHolder/coin" method="_on_body_entered"]
+[connection signal="coinCollected" from="Coins/coinHolder/coin" to="Control/Counter" method="_on_coin_coin_collected"]
+[connection signal="body_entered" from="Coins/coinHolder5/coin" to="Coins/coinHolder5/coin" method="_on_body_entered"]
+[connection signal="coinCollected" from="Coins/coinHolder5/coin" to="Control/Counter" method="_on_coin_coin_collected"]
+[connection signal="body_entered" from="Coins/coinHolder4/coin" to="Coins/coinHolder4/coin" method="_on_body_entered"]
+[connection signal="coinCollected" from="Coins/coinHolder4/coin" to="Control/Counter" method="_on_coin_coin_collected"]
+[connection signal="body_entered" from="Coins/coinHolder3/coin" to="Coins/coinHolder3/coin" method="_on_body_entered"]
+[connection signal="coinCollected" from="Coins/coinHolder3/coin" to="Control/Counter" method="_on_coin_coin_collected"]
+[connection signal="body_entered" from="Coins/coinHolder2/coin" to="Coins/coinHolder2/coin" method="_on_body_entered"]
+[connection signal="coinCollected" from="Coins/coinHolder2/coin" to="Control/Counter" method="_on_coin_coin_collected"]
+[connection signal="timeout" from="Control/Counter/Timer" to="Control/Counter" method="_on_timer_timeout"]
